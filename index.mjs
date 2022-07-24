@@ -38,12 +38,14 @@ const voter = async (whoi) => {
   // console.log('Voter address of', stdlib.formatAddress(who));
   const votersAddress = stdlib.formatAddress(who)
   if(voters.length < 5){
+    console.log("Creating new voter")
     voters.push(votersAddress)
     console.log(voters)
+    console.log("The voters list has been incremented")
     await ctc.apis.Bob.register;  
   }else{
     await ctcAlice.apis.Bob.done;
-    console.log("Voters should not be more than 5")
+    console.log(`${votersAddress} tried to attach but the max of 5 attachers has been reached`)
   }
 }
 

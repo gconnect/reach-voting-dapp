@@ -50,7 +50,7 @@ export const main = Reach.App(() => {
     }]; 
   }) 
   .api(B.done, (k) => {
-      // check( this == A, "you are the deployer");
+      check( this == A, "you are the deployer");
       check(howmany == 5)
       k(null);
       A.interact.log("Done when users are 5");
