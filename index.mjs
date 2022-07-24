@@ -27,6 +27,7 @@ await ctcAlice.p.Alice({
     }
 });
 
+// await ctcAlice.v.Message.logger()
 
 const users = await stdlib.newTestAccounts(6, startingBalance);
 

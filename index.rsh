@@ -15,12 +15,18 @@ export const main = Reach.App(() => {
     done: Fun([], Null),
   });
 
+  const M = View("Message", {
+    logger: Bytes(20)
+  })
+
   init();
   A.publish();
   A.interact.ready();
+  M.logger.set("voter is less than 5")
 
   //SECOND LEVEL
   const voters = new Set();
+
 
   const [ done, howmany] =
   parallelReduce([ true, 0 ])
@@ -31,22 +37,22 @@ export const main = Reach.App(() => {
     check( !voters.member(this), "not yet a member" );
     check(howmany == 5)
     return [ (k) => {
-      // k(true);
-      // voters.insert(this);
-      // A.interact.log(this,"voter is less than 5");
+      k(true);
+      voters.insert(this);
+      A.interact.log(this,"voter is less than 5");
 
-      if(howmany < 5){
-        A.interact.log("voter is less than 5");
-        k(true);
-        voters.insert(this);
-        return [ done, howmany + 1 ];
-      }else{
-        A.interact.log("voter is more than 5");
-        voters.remove(this);
-        k(false)
-        return [ done, howmany - 1 ];
-      }
-      // return [ done, howmany + 1 ];
+      // if(howmany < 5){
+      //   A.interact.log("voter is less than 5");
+      //   k(true);
+      //   voters.insert(this);
+      //   return [ done, howmany + 1 ];
+      // }else{
+      //   A.interact.log("voter is more than 5");
+      //   voters.remove(this);
+      //   k(false)
+      //   return [ done, howmany - 1 ];
+      // }
+      return [ done, howmany + 1 ];
     }]; 
   }) 
   .api(B.done, (k) => {
